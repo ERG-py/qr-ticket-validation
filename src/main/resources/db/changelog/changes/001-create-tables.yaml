@@ -1,0 +1,107 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001-create-gates
+      author: backend
+      changes:
+        - createTable:
+            tableName: gates
+            columns:
+              - column:
+                  name: id
+                  type: BIGSERIAL
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+
+  - changeSet:
+      id: 002-create-tickets
+      author: backend
+      changes:
+        - createTable:
+            tableName: tickets
+            columns:
+              - column:
+                  name: id
+                  type: BIGSERIAL
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: code
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: event_id
+                  type: BIGINT
+              - column:
+                  name: holder_name
+                  type: VARCHAR(255)
+              - column:
+                  name: status
+                  type: VARCHAR(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: valid_from
+                  type: TIMESTAMP
+              - column:
+                  name: valid_to
+                  type: TIMESTAMP
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: 003-create-checkins
+      author: backend
+      changes:
+        - createTable:
+            tableName: checkins
+            columns:
+              - column:
+                  name: id
+                  type: BIGSERIAL
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: ticket_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_checkins_ticket
+                    references: tickets(id)
+              - column:
+                  name: gate_id
+                  type: BIGINT
+                  constraints:
+                    foreignKeyName: fk_checkins_gate
+                    references: gates(id)
+              - column:
+                  name: checked_at
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: received_at
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: source
+                  type: VARCHAR(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: client_event_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    unique: true

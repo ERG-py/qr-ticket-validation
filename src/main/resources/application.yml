@@ -1,0 +1,25 @@
+#file: noinspection YAMLSchemaValidation
+spring:
+  application:
+    name: validation
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/qr_ticket
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:qrticket}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        format_sql: true
+    open-in-view: false
+
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.yaml
+
+logging:
+  level:
+    org.hibernate.SQL: debug
