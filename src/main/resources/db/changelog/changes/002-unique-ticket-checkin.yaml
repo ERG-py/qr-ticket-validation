@@ -1,0 +1,10 @@
+databaseChangeLog:
+  - changeSet:
+      id: 4
+      author: dev
+      comment: "Один билет = один проход. Защита от гонки на уровне БД."
+      changes:
+        - addUniqueConstraint:
+            tableName: checkins
+            columnNames: ticket_id
+            constraintName: uq_checkins_ticket_id
