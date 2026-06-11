@@ -1,0 +1,6 @@
+target/
+generated-qr/
+.idea/
+*.iml
+.git/
+проект статус/
